@@ -1,0 +1,17 @@
+# Xmake cache
+.xmake/
+build/
+
+# MacOS Cache
+.DS_Store
+
+package.json
+tools/
+xpacks
+
+*.hex
+*.srec
+*.bin
+*.elf
+*.map
+*.dmp

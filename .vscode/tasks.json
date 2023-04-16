@@ -1,0 +1,15 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "build",
+            "type": "shell",
+            "command": "xmake -v"
+        },
+        {
+            "label": "download",
+            "type": "shell",
+            "command": "./tools/OpenOCD/bin/openocd.exe -f ./tools/OpenOCD/bin/wch-riscv.cfg -c init -c halt -c 'flash write_image erase ./build/cross/riscv/release/CleverFoc_CH32V307.hex' -c reset -c shutdown"
+        }
+    ]
+}

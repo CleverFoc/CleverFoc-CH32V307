@@ -1,0 +1,14 @@
+[
+    {
+        "key": "f7",
+        "command": "workbench.action.tasks.runTask",
+        "args": "build",
+        "when": "editorTextFocus"
+    },
+    {
+        "key": "f8",
+        "command": "workbench.action.tasks.runTask",
+        "args": "download",
+        "when": "editorTextFocus"
+    }
+]
