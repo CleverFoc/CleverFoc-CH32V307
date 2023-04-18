@@ -9,10 +9,13 @@ toolchain_end()
 
 target("CleverFoc_CH32V307")
     set_kind("binary")
-    add_files("src/*.c")
     add_files("startup/*.S")
     add_files("peripheral/src/*.c")
     add_files("core/*.c")
+    add_files("src/*.c")
+    add_files("src/driver/*.c")
+    add_files("src/current/*.c")
+    add_files("src/position/*.c")
     add_includedirs("src")
     add_includedirs("peripheral/inc")
     add_includedirs("core")
@@ -21,10 +24,14 @@ target("CleverFoc_CH32V307")
     set_toolchains('wch_riscv')
     set_extension(".elf")
 
+    add_cxxflags("-Werror")
+    add_cxxflags("-std=gnu99")
+
     add_ldflags('--specs=nosys.specs')
     add_ldflags('--specs=nano.specs',{force = true})
     add_ldflags('-Wl,--gc-sections','-nostartfiles')
     add_ldflags('-T', path.join(os.projectdir(),'ld','Link.ld'),{force = true})
+    
     -- After compilation, the .elf file is converted to .hex
     after_build(function (target)
         -- Get the path of the SDK

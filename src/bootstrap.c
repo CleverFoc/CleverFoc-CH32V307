@@ -19,6 +19,7 @@
 */
 
 #include "debug.h"
+#include "driver\pwm_driver.h"
 
 
 /* Global typedef */
@@ -45,19 +46,21 @@ void LED1_BLINK_INIT(void)
  */
 int main(void)
 {
+    
 	NVIC_PriorityGroupConfig(NVIC_PriorityGroup_2);
 	//SystemInit();
+ 
 	Delay_Init();
 	USART_Printf_Init(115200);	
-
 	Delay_Ms(50);
 	printf("SystemClk:%d\r\n",SystemCoreClock);
 	printf("This is printf example\r\n");
 
+	//LED1_BLINK_INIT();
+    //GPIO_ResetBits(GPIOB,GPIO_Pin_0);
 
-	LED1_BLINK_INIT();
 
-    GPIO_ResetBits(GPIOB,GPIO_Pin_0);
+    pwm_driver_init();
     while(1)
     {
         GPIO_SetBits(GPIOB,GPIO_Pin_0);
