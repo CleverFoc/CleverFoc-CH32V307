@@ -26,6 +26,8 @@ target("CleverFoc_CH32V307")
 
     add_cxxflags("-Werror")
     add_cxxflags("-std=gnu99")
+    add_cxxflags("-march=rv32imac")
+    add_cxxflags("-mabi=ilp32")
 
     add_ldflags('--specs=nosys.specs')
     add_ldflags('--specs=nano.specs',{force = true})
