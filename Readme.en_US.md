@@ -1,6 +1,9 @@
 # Firmware for CH32V307 FOC Controller
 
-[中文](./Readme.md) | English
+[中文](./Readme.md) | English   
+
+[![Static Analysis](https://github.com/CleverFoc/CleverFoc-CH32V307/actions/workflows/cppcheck.yml/badge.svg)](https://github.com/CleverFoc/CleverFoc-CH32V307/actions/workflows/cppcheck.yml)
+
 
 ## 1.Introduction
 
