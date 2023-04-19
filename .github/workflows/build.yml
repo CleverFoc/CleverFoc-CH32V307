@@ -23,9 +23,7 @@ jobs:
         shell: bash
         run: |
           curl -O http://file.mounriver.com/tools/MRS_Toolchain_Linux_X64_V170.tar.xz
-          tar -xvf MRS_Toolchain_Linux_X64_V170.tar.xz
-          ls
-          cp -r MRS_Toolchain_Linux_X64_V1.70/* tools
+          tar -xvf MRS_Toolchain_Linux_X64_V170.tar.xz --strip-components 1 -C tools
       - name: Build
         run: xmake -v
 
