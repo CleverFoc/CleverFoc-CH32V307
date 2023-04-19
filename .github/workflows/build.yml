@@ -10,6 +10,8 @@ jobs:
       - uses: xmake-io/github-action-setup-xmake@v1
         with:
           xmake-version: latest
+          actions-cache-folder: '.xmake-cache'
+          actions-cache-key: 'archlinux-ci'
       - name: Cache toolchain
         id: cache-toolchain
         uses: actions/cache@v3
@@ -21,6 +23,7 @@ jobs:
         run: |
           curl -O http://file.mounriver.com/tools/MRS_Toolchain_Linux_X64_V170.tar.xz
           tar -xvf MRS_Toolchain_Linux_X64_V170.tar.xz
+          ls
           cp -a ./MRS_Toolchain_Linux_X64_V1.70/* ./tools
       - name: Build
         run: xmake -v
