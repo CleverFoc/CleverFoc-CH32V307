@@ -1,5 +1,6 @@
 # 基于 CH32V307 的 FOC 控制器固件
 
+中文 | [English](./Readme.en_Us.md)
 ## 1. 项目简介
 
 本项目是 [CH32V307 的 FOC 控制器](https://github.com/LIUYIXIEYANG/CH32V307-Dual-brushless-motor-drive) 的固件。可以实现两个电机的 FOC 控制，支持电机的速度、力矩闭环控制。
