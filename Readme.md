@@ -4,6 +4,7 @@
 
 
 [![Static Analysis](https://github.com/CleverFoc/CleverFoc-CH32V307/actions/workflows/cppcheck.yml/badge.svg)](https://github.com/CleverFoc/CleverFoc-CH32V307/actions/workflows/cppcheck.yml)
+[![Build project](https://github.com/CleverFoc/CleverFoc-CH32V307/actions/workflows/build.yml/badge.svg)](https://github.com/CleverFoc/CleverFoc-CH32V307/actions/workflows/build.yml)
 
 ## 1. 项目简介
 

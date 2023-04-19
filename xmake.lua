@@ -35,7 +35,6 @@ target("CleverFoc_CH32V307")
     add_cxflags("-Wuninitialized")
     add_cxflags("-Wsequence-point")
     add_cxflags("-Wsign-compare")
-    add_cxflags("-Wsign-compare")
 
     add_cxflags("-std=gnu99")
     add_cxflags("-march=rv32imac")
