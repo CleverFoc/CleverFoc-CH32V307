@@ -23,7 +23,7 @@ jobs:
             cppcheck --enable=warning,performance,portability --inline-suppr --error-exitcode=1 --force $changed_files
               err=$?
               if [ $err -ne 0 ]; then
-                  echo "CPPCHECK FAILED, PLEASE FIX THE ERRORS"
+                  echo "CPPCHECK FAILED, PLEASE FIX THE PROBLEMS"
               fi
           fi
 
