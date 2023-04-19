@@ -1,0 +1,28 @@
+name: Build project
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: xmake-io/github-action-setup-xmake@v1
+        with:
+          xmake-version: latest
+      - name: Cache toolchain
+        id: cache-toolchain
+        uses: actions/cache@v3
+        with:
+          path: tools
+          key: ${{ runner.os }}-tools
+      - name: Install CH32V307 Toolchain
+        if: steps.cache-toolchain.outputs.cache-hit != 'true'
+        run: |
+          curl -O http://file.mounriver.com/tools/MRS_Toolchain_Linux_X64_V170.tar.xz
+          tar -xvf MRS_Toolchain_Linux_X64_V170.tar.xz
+          cp -a ./MRS_Toolchain_Linux_X64_V170/* ./tools
+      - name: Build
+        run: xmake -v
+
+
