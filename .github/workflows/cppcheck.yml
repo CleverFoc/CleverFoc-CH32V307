@@ -1,0 +1,29 @@
+name: Static Analysis
+
+on: [push, pull_request]
+
+jobs:
+  cppcheck:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install Cppcheck
+        run: sudo apt-get install cppcheck
+      - name: Run Cppcheck
+        shell: bash
+        run: |
+          git remote -v
+          git fetch origin
+          cppcheck --version
+          ls
+          git branch -a
+          changed_files=$(git diff --name-only origin/master | grep -E "\.(c|cpp|cxx|cc|h|hpp)$")
+          echo "Changed files: $changed_files"
+          if [ -n "$changed_files"];then
+            cppcheck  --enable=warning,performance,portability --inline-suppr --error-exitcode=1 --force $changed_files
+              err=$?
+              if [ $err -ne 0 ]; then
+                  echo "CPPCHECK FAILED, PLEASE FIX THE ERRORS"
+              fi
+          fi
+
