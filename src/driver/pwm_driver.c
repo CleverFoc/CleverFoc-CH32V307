@@ -17,6 +17,9 @@
 // Dead Time (us)
 #define DEAD_TIME
 
+#define FREQ_TO_DIV(freq) ((uint16_t)((SystemCoreClock / freq) >> 16))
+#define FREQ_TO_PERIOD(freq) ((SystemCoreClock / freq) / (FREQ_TO_DIV(freq) + 1))
+
 // DRV1 -> TIM1
 static void _drv1_pwm_init(int freq)
 {
@@ -27,9 +30,6 @@ static void _drv1_pwm_init(int freq)
     TIM_OCInitTypeDef TIM_OCInitStructure = {0};
     TIM_BDTRInitTypeDef TIM_BDTRInitStructure = {0};
 
-    uint16_t prescaler = 0;
-    uint16_t period = 0;
-    uint16_t freq_div = 0;
 
     RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOB | RCC_APB2Periph_GPIOA | RCC_APB2Periph_TIM1, ENABLE);
 
@@ -50,11 +50,9 @@ static void _drv1_pwm_init(int freq)
     GPIO_Init(GPIOB, &GPIO_InitStructure);
 
     // Calculate the prescaler and period, ensure can reach the target frequency.
-    prescaler = ((SystemCoreClock / freq) >> 16);
-    period = (SystemCoreClock / freq) / (prescaler + 1);
 
-    TIM_TimeBaseStructure.TIM_Period = period;
-    TIM_TimeBaseStructure.TIM_Prescaler = prescaler;
+    TIM_TimeBaseStructure.TIM_Period = FREQ_TO_PERIOD(freq);
+    TIM_TimeBaseStructure.TIM_Prescaler = FREQ_TO_DIV(freq);
     TIM_TimeBaseStructure.TIM_ClockDivision = TIM_CKD_DIV1;
     // We use Center-aligned mode 1, Because current detection needs to be done in the middle of the PWM cycle.
     TIM_TimeBaseStructure.TIM_CounterMode = TIM_CounterMode_CenterAligned1;
@@ -102,10 +100,6 @@ static void _drv2_pwm_init(int freq)
     TIM_OCInitTypeDef TIM_OCInitStructure = {0};
     TIM_BDTRInitTypeDef TIM_BDTRInitStructure = {0};
 
-    uint16_t prescaler = 0;
-    uint16_t period = 0;
-    uint16_t freq_div = 0;
-
     RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOB | RCC_APB2Periph_GPIOA | RCC_APB2Periph_GPIOD | RCC_APB2Periph_TIM10 | RCC_APB2Periph_AFIO, ENABLE);
     // Umm... Remap gpio
     GPIO_PinRemapConfig(GPIO_PartialRemap_TIM10, ENABLE);
@@ -125,12 +119,8 @@ static void _drv2_pwm_init(int freq)
     GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
     GPIO_Init(GPIOD, &GPIO_InitStructure);
 
-    // Calculate the prescaler and period, ensure can reach the target frequency.
-    prescaler = ((SystemCoreClock / freq) >> 16);
-    period = (SystemCoreClock / freq) / (prescaler + 1);
-
-    TIM_TimeBaseStructure.TIM_Period = period;
-    TIM_TimeBaseStructure.TIM_Prescaler = prescaler;
+    TIM_TimeBaseStructure.TIM_Period = FREQ_TO_PERIOD(freq);
+    TIM_TimeBaseStructure.TIM_Prescaler = FREQ_TO_DIV(freq);
     TIM_TimeBaseStructure.TIM_ClockDivision = TIM_CKD_DIV1;
     // We use Center-aligned mode 1, Because current detection needs to be done in the middle of the PWM cycle.
     TIM_TimeBaseStructure.TIM_CounterMode = TIM_CounterMode_CenterAligned1;

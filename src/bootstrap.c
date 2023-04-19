@@ -19,7 +19,7 @@
 */
 
 #include "debug.h"
-#include "driver\pwm_driver.h"
+#include "driver/pwm_driver.h"
 
 
 /* Global typedef */
