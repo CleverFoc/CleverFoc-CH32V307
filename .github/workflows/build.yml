@@ -20,6 +20,7 @@ jobs:
           key: ${{ runner.os }}-tools
       - name: Install CH32V307 Toolchain
         if: steps.cache-toolchain.outputs.cache-hit != 'true'
+        shell: bash
         run: |
           curl -O http://file.mounriver.com/tools/MRS_Toolchain_Linux_X64_V170.tar.xz
           tar -xvf MRS_Toolchain_Linux_X64_V170.tar.xz
